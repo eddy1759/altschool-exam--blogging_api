@@ -162,7 +162,7 @@ Success
 ```
 {
   "password": "Password1",
-  "username": '"doe@example.com",",
+  "email": '"doe@example.com",",
 }
 ```
 
@@ -179,7 +179,7 @@ Success
 ---
 ### Create a Blog
 
-- Route: /blog
+- Route: /blog/create
 - Method: POST
 - Header
     - Authorization: Bearer {token}
@@ -189,7 +189,7 @@ Success
   article: {
   title: "The giants",
   description: "Fall of the champions",
-  tags: "Story, fairy",
+  tags: ["Story, fairy"],
   body: "The story of a Jugu hero"
 }
 ```
@@ -199,7 +199,6 @@ Success
 Success
 ```
 {
-    created_at: Sun Nov 06 2022 08:35:00 GMT+0100,
     status: true,
     article: { 
        title: "The giants", 
@@ -212,7 +211,7 @@ Success
           "password": "Password1", 
           "firstname": "jon", 
           "lastname": "doe", 
-          "username": 'doe@example.com"}
+          }
       }
 }
 ```
@@ -246,7 +245,7 @@ Success
           "password": "Password1", 
           "firstname": "jon", 
           "lastname": "doe", 
-          "username": 'doe@example.com"}
+          "email": 'doe@example.com"}
       }
   }]
 }
@@ -254,7 +253,7 @@ Success
 ---
 
 ### Get All Blogs for a User
-- Route: /articles/user/:userID
+- Route: /blog/user/:id
 - Method: GET
 - Header
     - Authorization: Bearer {token}
@@ -274,7 +273,7 @@ Success
        description: "Fall of the champions", tags: ['Story', 'fairy'],
        body: "The story of a Jugu hero"},
        state:"published"
-       read_Count:0, reading_time:1, 
+       read_Count:0, reading_time:1 mins, 
        author:{
           email: "doe@example.com", 
           "password": "Password1", 
@@ -288,7 +287,7 @@ Success
 ---
 
 ### Get a blog
-- Route: /articles/:articleID
+- Route: /blog/:id
 - Method: GET
 - Header
     - Authorization: Bearer {token}
@@ -318,7 +317,7 @@ Success
 ---
 ### Update a blog
 
-- Route: /articles/articleID
+- Route: /blog/id
 - Method: PUT
 - Header
     - Authorization: Bearer {token}
@@ -355,7 +354,7 @@ Success
 
 ### Update the state
 
-- Route: /articles/articleID
+- Route: /blog/state/id
 - Method: PATCH
 - Header
     - Authorization: Bearer {token}
@@ -391,7 +390,7 @@ Success
 ---
 ### Delete a blog
 
-- Route: /articles/:articleID
+- Route: /blog/:id
 - Method: GET
 - Header
     - Authorization: Bearer {token}
