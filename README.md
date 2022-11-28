@@ -106,7 +106,7 @@ npm run test
 
 
 
-### Article
+### Blog
 | field        | data_type  | constraints                                              |
 | ------------ | ---------- | -------------------------------------------------------- |
 | title        | string     | required                                                 |
@@ -179,7 +179,7 @@ Success
 ---
 ### Create a Blog
 
-- Route: /blog/create
+- Route: api/blog/create
 - Method: POST
 - Header
     - Authorization: Bearer {token}
@@ -218,7 +218,7 @@ Success
 ---
 ### Get All Published Blogs
 
-- Route: /articles
+- Route: /api/blog
 - Method: GET
 - Header
     - Authorization: Bearer {token}
@@ -253,7 +253,7 @@ Success
 ---
 
 ### Get All Blogs for a User
-- Route: /blog/user/:id
+- Route: api/blog/user/:id
 - Method: GET
 - Header
     - Authorization: Bearer {token}
@@ -287,7 +287,7 @@ Success
 ---
 
 ### Get a blog
-- Route: /blog/:id
+- Route: api/blog/:id
 - Method: GET
 - Header
     - Authorization: Bearer {token}
@@ -317,7 +317,7 @@ Success
 ---
 ### Update a blog
 
-- Route: /blog/id
+- Route: api/blog/id
 - Method: PUT
 - Header
     - Authorization: Bearer {token}
@@ -354,7 +354,7 @@ Success
 
 ### Update the state
 
-- Route: /blog/state/id
+- Route: api/blog/state/id
 - Method: PATCH
 - Header
     - Authorization: Bearer {token}
@@ -390,7 +390,7 @@ Success
 ---
 ### Delete a blog
 
-- Route: /blog/:id
+- Route: api/blog/:id
 - Method: GET
 - Header
     - Authorization: Bearer {token}
