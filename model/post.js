@@ -25,6 +25,7 @@ const blogSchema = new Schema({
         type:Number,
         default: 0
     },
+    likes: Number,
     reading_time: String,
     tags: [String],
     body: {
@@ -37,3 +38,7 @@ const blogSchema = new Schema({
 const blogModel = mongoose.model('blogs', blogSchema);
 
 module.exports = blogModel
+
+
+
+

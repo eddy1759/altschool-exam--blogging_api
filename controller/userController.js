@@ -1,47 +1,61 @@
-const passport = require('passport');
-const helper = require('../utils/helper');
+const userModel = require('../model/user')
+const {StatusCodes} = require('http-status-codes')
+const {validateUser, jwtSignToken} = require('../utils/helper')
 
 
-exports.signup = passport.authenticate('signup', { session: false }), async (req, res, next) => {
-        console.log(req.user)
-        res.status(201).json({
-            message: 'Signup successful',
-            user: req.user
-        });
+const signup = async (req, res, next) => {
+    const {
+        firstname, lastname,
+        password, email
+    } = req.body
+
+   try {
+    let userExist = await userModel.findOne({email: email})
+    if (userExist) {
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            status: false,
+            msg: "This user already exist"
+        })
+    }
+
+    const user = await userModel.create({
+        firstname,
+        lastname,
+        password,
+        email
+    })
+    res.status(StatusCodes.ACCEPTED).json({
+        status: true,
+        msg: "User created successfully",
+        user
+    })
+   } catch (error) {
+       next(error)
+   }
 }
 
+const login = async(req, res, next) => {
+    const {email, password} = req.body
 
-exports.login = async (req, res, next) => {
-        passport.authenticate('login', async (err, user, info) => {
-            try {
-                if (err) {
-                    return next(err);
-                }
-                if (!user) {
-                    const error = new Error('Username or password is incorrect');
-                    return next(error);
-                }
-                
-
-                req.login(user, { session: false },
-                    async (error) => {
-                        if (error) return next(error);
-
-                        const body = { _id: user._id, email: user.email };
-                        const token = helper.jwtSignToken({user: body})
-
-                        return res.json({ token });
-                        
-                    }
-                    
-                );
-            } catch (error) {
-                return next(error);
-            }
+    try {
+        const user = validateUser(email, password)
+        if (!user){
+            return res.status(StatusCodes.UNAUTHORIZED).json("Email or Password does not exist")
         }
-        )(req, res, next);
-};
+        const body = {_id: user._id, email: user.email}
+        const token = jwtSignToken(body)
+        res.status(StatusCodes.OK).json({
+            status: true,
+            msg: "Login successful",
+            token
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 
-
-
+module.exports = {
+    signup,
+    login
+}
 

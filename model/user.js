@@ -6,13 +6,13 @@ const Schema = mongoose.Schema;
 
 
 const userSchema = new Schema({
-    first_name: {
+    firstname: {
         type: String,
         required: true,
         lowercase: true,
         trim: true
     },
-    last_name: {
+    lastname: {
         type: String,
         required: true,
         lowercase: true,
@@ -43,17 +43,8 @@ userSchema.pre('save', async function hashPassword (next) {
     next()
 });
 
-// userSchema.methods.ValidCredential = async function(password) {
-//     const user = this;
-//     const compare = await bcrypt.compare(password, user.password);
-
-//     return compare;
-// };
-
-
-
-userSchema.methods.isValidPassword = async function(enterPassword){
-    return await bcrypt.compare(enterPassword, this.password);
+userSchema.methods.isValidPassword = async function(enteredPassword){
+    return await bcrypt.compare(enteredPassword, this.password);
 }
 
 

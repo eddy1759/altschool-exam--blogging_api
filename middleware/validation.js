@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const {StatusCodes} = require('http-status-codes')
 
 const addBlogSchema = Joi.object({
     title: Joi.string()
@@ -32,11 +33,11 @@ const updateBlogSchema = Joi.object({
 
 
 const addUserSchema = Joi.object({
-    first_name: Joi.string()
+    firstname: Joi.string()
         .max(255)
         .trim()
         .required(),
-    last_name: Joi.string()
+    lastname: Joi.string()
         .max(255)
         .required()
         .trim(),
@@ -59,7 +60,7 @@ async function addBlogValidationMW (req, res, next) {
     } catch (error) {
         next({
             message: error.details[0].message,
-            status: 400
+            status: StatusCodes.BAD_REQUEST
         })
     }
 };
@@ -73,7 +74,7 @@ async function updateBlogValidationMW (req, res, next) {
     } catch (error) {
         next({
             message: error.details[0].message,
-            status: 400
+            status: StatusCodes.BAD_REQUEST
         })
     }
 };
@@ -87,7 +88,7 @@ async function addUserValidationMW (req, res, next) {
     } catch (error) {
         next({
             message: error.details[0].message,
-            status: 400
+            status: StatusCodes.BAD_REQUEST
         })
     }
 };
